@@ -1,0 +1,115 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/readable/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+
+  <title>Who's Better at Math?</title>
+
+  <style>
+    input.form-control, input.form-control:focus, 
+    textarea.form-control, textarea.form-control:focus,
+    select.form-control, select.form-control:focus {
+      border-width: 2px;
+      box-shadow: none;
+       -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+       -moz-transition: none;
+       -webkit-transition: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+    <div class="page-header" style="border: 0px;">
+      <h4>Finish these equations as fast as you can!</h4>
+    </div>
+
+    <div class="alert alert-warning" role="alert">One or more of your answers are off! Try again!</div>
+
+    <div class="input-group">
+      <div class="input-group-addon">13 x 13  = </div>
+      <input class="form-control" style="width: 60px;" id="no1">
+    </div> <br>
+
+    <div class="input-group">
+      <div class="input-group-addon">6 x 11 = </div>
+      <input class="form-control" style="width: 60px;" id="no2">
+    </div> <br>
+
+    <div class="input-group">
+      <div class="input-group-addon">9 x 9  = </div>
+      <input class="form-control" style="width: 60px;" id="no3">
+    </div> <br>
+
+    <div class="input-group">
+      <div class="input-group-addon">12 x 7 = </div>
+      <input class="form-control" style="width: 60px;" id="no4">
+    </div> <br>
+
+    <div class="input-group">
+      <div class="input-group-addon">8 x 4  = </div>
+      <input class="form-control" style="width: 60px;" id="no5">
+    </div> <br>
+
+    <br>
+
+    <p class="btn btn-primary btn-male">Submit as male</p>
+    <p class="btn btn-danger btn-female">Submit as female</p>
+
+  </div>
+  <script type="text/javascript">
+    var myFirebaseRef = new Firebase("https://stats-project.firebaseio.com/");
+    var startTime = Date.now();
+    $(".alert").hide();
+
+    $(".btn-male").click(function() {
+      if($("#no1").val() === "169" && 
+         $("#no2").val() === "66" && 
+         $("#no3").val() === "81" && 
+         $("#no4").val() === "84" && 
+         $("#no5").val() === "32")
+      {
+        var timeSpent = (Date.now() - startTime) / 1000;
+
+        myFirebaseRef.push({
+          gender: "male",
+          time: timeSpent
+        });
+
+        window.location = "viewer.html";
+      }
+      else
+      {
+        $('.alert').show();
+      }
+    });
+
+    $(".btn-female").click(function() {
+      if($("#no1").val() === "169" && 
+         $("#no2").val() === "66" && 
+         $("#no3").val() === "81" && 
+         $("#no4").val() === "84" && 
+         $("#no5").val() === "32")
+      {
+        var timeSpent = (Date.now() - startTime) / 1000;
+
+        myFirebaseRef.push({
+          gender: "female",
+          time: timeSpent
+        });
+
+        window.location = "viewer.html";
+      }
+      else
+      {
+        $('.alert').show();
+      }
+    });
+  </script>
+
+</body>
+</html>
